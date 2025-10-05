@@ -1,7 +1,7 @@
 import socket
-
-host = input("enter : ")
-port = 45200
+import sys
+host = sys.argv[1]
+port = int(sys.argv[2])
 
 invalids = ["python","python "]
 
@@ -38,3 +38,4 @@ try:
 except:
     server.sendall("exit".encode())
     server.close()
+
