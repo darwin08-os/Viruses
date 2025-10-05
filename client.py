@@ -1,7 +1,18 @@
 import socket
-import sys
-host = sys.argv[1]
-port = int(sys.argv[2])
+import argparse
+
+
+# create argument parser object
+parser = argparse.ArgumentParser(description="this is client program to connect to the server")
+parser.add_argument("-i","--ip",required=True,help="this takes ip address")
+parser.add_argument("-p","--port",required=True,type=int,help="this is port number")
+
+args = parser.parse_args()
+
+
+host = args.ip
+port = args.port
+
 
 invalids = ["python","python "]
 
@@ -38,4 +49,3 @@ try:
 except:
     server.sendall("exit".encode())
     server.close()
-
